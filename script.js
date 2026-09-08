@@ -1,26 +1,44 @@
-document.addEventListener("click", function () {
-    const rika = document.createElement("img");
+document.addEventListener("click", function (event) {
 
-    rika.src = "rika.png";
-    rika.className = "rika";
+    // Создаём картинку
+    const rika = new Image();
 
-    // Случайный размер
-    const size = 150 + Math.random() * 150;
-    rika.style.width = size + "px";
+    rika.onload = function () {
+        console.log("РИКА ЗАГРУЗИЛАСЬ");
 
-    // Случайная позиция по всему экрану
-    rika.style.left = Math.random() * (window.innerWidth - size) + "px";
-    rika.style.top = Math.random() * (window.innerHeight - size) + "px";
+        rika.style.position = "fixed";
+        rika.style.zIndex = "999999";
+        rika.style.pointerEvents = "none";
+        rika.style.width = "250px";
+        rika.style.height = "auto";
 
-    // Добавляем Рику
-    document.body.appendChild(rika);
+        // Абсолютно случайное место экрана
+        rika.style.left =
+            Math.random() * (window.innerWidth - 250) + "px";
 
-    // Удаляем её через 1 секунду
-    setTimeout(function () {
-        rika.remove();
-    }, 1000);
+        rika.style.top =
+            Math.random() * (window.innerHeight - 300) + "px";
 
-    // Новый звук для каждого клика
-    const sound = new Audio("nipaa.ogg");
-    sound.play();
+        document.body.appendChild(rika);
+
+        setTimeout(function () {
+            rika.remove();
+        }, 1000);
+    };
+
+    rika.onerror = function () {
+        console.error("РИКА НЕ ЗАГРУЗИЛАСЬ:", rika.src);
+        alert("Не удалось загрузить rika.png");
+    };
+
+    // Именно файл из корня сайта
+    rika.src = "./rika.png";
+
+
+    // ЗВУК
+    const sound = new Audio("./nipaa.ogg");
+    sound.play().catch(function(error) {
+        console.error("Ошибка звука:", error);
+    });
+
 });
