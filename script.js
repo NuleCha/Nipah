@@ -1,27 +1,26 @@
-(() => {
-  const layer = document.getElementById("rika-layer");
-  const source = document.getElementById("nipaa-source");
-
-  document.addEventListener("click", (e) => {
+document.addEventListener("click", function () {
     const rika = document.createElement("img");
-    rika.className = "rika";
+
     rika.src = "rika.png";
-    rika.alt = "";
+    rika.className = "rika";
 
-    const size = 120 + Math.random() * 180;
+    // Случайный размер
+    const size = 150 + Math.random() * 150;
     rika.style.width = size + "px";
-    rika.style.left = (e.clientX - size/2 + (Math.random()-0.5)*120) + "px";
-    rika.style.top = (e.clientY - size/2 + (Math.random()-0.5)*120) + "px";
-    rika.style.transform = "rotate(" + ((Math.random()-0.5)*20) + "deg)";
-    layer.appendChild(rika);
 
-    const sound = source.cloneNode(true);
-    sound.currentTime = 0;
-    sound.play().catch(() => {});
-    sound.addEventListener("ended", () => sound.remove());
-    sound.addEventListener("error", () => sound.remove());
-    document.body.appendChild(sound);
+    // Случайная позиция по всему экрану
+    rika.style.left = Math.random() * (window.innerWidth - size) + "px";
+    rika.style.top = Math.random() * (window.innerHeight - size) + "px";
 
-    setTimeout(() => rika.remove(), 1000);
-  });
-})();
+    // Добавляем Рику
+    document.body.appendChild(rika);
+
+    // Удаляем её через 1 секунду
+    setTimeout(function () {
+        rika.remove();
+    }, 1000);
+
+    // Новый звук для каждого клика
+    const sound = new Audio("nipaa.ogg");
+    sound.play();
+});
