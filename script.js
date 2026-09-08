@@ -5,7 +5,7 @@
   document.addEventListener("click", (e) => {
     const rika = document.createElement("img");
     rika.className = "rika";
-    rika.src = "rika.jpg";
+    rika.src = "rika.png";
     rika.alt = "";
 
     const size = 120 + Math.random() * 180;
